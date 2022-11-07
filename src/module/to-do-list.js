@@ -13,7 +13,7 @@ export default class {
 
     constructor() {
       if (this.storage.git('to-do-list')) {
-        this.list = JSON.parse(this.storage.git('to-do-list'));
+        this.list = this.storage.git('to-do-list');
         this.nextIndex = this.list.length === 0 ? 0 : this.list[this.list.length - 1].index;
         this.listView();
       } else {
@@ -28,7 +28,7 @@ export default class {
         description,
       };
       this.list.push(itme);
-      this.storage.sit('to-do-list', JSON.stringify(this.list));
+      this.storage.sit('to-do-list', this.list);
       this.listView();
     }
 
@@ -37,13 +37,13 @@ export default class {
       for (let i = 0; i < this.list.length; i += 1) {
         this.list[i].index = i + 1;
       }
-      this.storage.sit('to-do-list', JSON.stringify(this.list));
+      this.storage.sit('to-do-list', this.list);
       this.listView();
     }
 
     removeAll() {
       this.list = this.list.filter((ele) => !ele.completed);
-      this.storage.sit('to-do-list', JSON.stringify(this.list));
+      this.storage.sit('to-do-list', this.list);
       this.listView();
     }
 
@@ -78,7 +78,7 @@ export default class {
         this.list.forEach((ele) => {
           if (ele.index === item.index) ele.description = description.value;
         });
-        this.storage.sit('to-do-list', JSON.stringify(this.list));
+        this.storage.sit('to-do-list', this.list);
       });
       boxText.appendChild(description);
       mainBox.appendChild(boxText);
